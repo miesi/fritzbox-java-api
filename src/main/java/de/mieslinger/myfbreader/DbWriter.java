@@ -8,8 +8,6 @@ package de.mieslinger.myfbreader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Timestamp;
-import java.time.ZoneOffset;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,6 +95,7 @@ public class DbWriter implements Runnable {
                         + "key (ts)"
                         + ")");
                 createTable.executeUpdate();
+                createTable.close();
                 logger.info("created table fb_log");
             } catch (Exception exc) {
                 logger.warn("unexpected exception during create table fb_log: {}", exc.getMessage());
@@ -113,9 +112,10 @@ public class DbWriter implements Runnable {
             insertLog.setString(4, e.getMetric());
             insertLog.setDouble(5, e.getValue());
             insertLog.execute();
+            insertLog.close();
             cleanupLog = conn.prepareStatement("delete from fb_log where ts < date_sub(now(), interval 3 month)");
             cleanupLog.executeUpdate();
-
+            cleanupLog.close();
         } catch (Exception ex) {
             logger.warn("unexpected exception during insert fb_log data: {}", ex.getMessage());
             ex.printStackTrace();
@@ -156,6 +156,7 @@ public class DbWriter implements Runnable {
                         + "primary key (ts)"
                         + ")");
                 createTable.executeUpdate();
+                createTable.close();
                 logger.info("created table {}", tableName);
             } catch (Exception exc) {
                 logger.warn("unexpected exception during create table {}: {}", tableName, exc.getMessage());
@@ -169,6 +170,7 @@ public class DbWriter implements Runnable {
             insertData.setTimestamp(1, e.getSqlTs());
             insertData.setDouble(2, e.getValue());
             insertData.execute();
+            insertData.close();
         } catch (Exception ex) {
             logger.warn("unexpected exception during insert data into {}: {}", tableName, ex.getMessage());
             ex.printStackTrace();
