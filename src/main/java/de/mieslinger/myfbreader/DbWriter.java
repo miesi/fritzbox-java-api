@@ -82,6 +82,7 @@ public class DbWriter implements Runnable {
         try {
             checkTableExists = conn.prepareStatement("select 1 from fb_log");
             checkTableExists.execute();
+            checkTableExists.close();
         } catch (Exception ex) {
             // -> Exception -> create table
             logger.info("Table fb_log does not exist, creating");
