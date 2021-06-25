@@ -17,11 +17,10 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import java.util.Optional;
+import org.simpleframework.xml.*;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import java.util.List;
+import java.util.Optional;
 
 @Root(name = "device")
 public class Device {
@@ -42,6 +41,8 @@ public class Device {
 
     @Element(name = "present")
     private String present;
+    @Element(name = "txbusy", required = false)
+    private String txbusy;
     @Element(name = "name")
     private String name;
 
@@ -51,12 +52,24 @@ public class Device {
     private Integer battery;
     @Element(name = "switch", required = false)
     private SwitchState switchState;
+    @Element(name = "simpleonoff", required = false)
+    private SimpleOnOffState simpleOnOff;
     @Element(name = "powermeter", required = false)
     private PowerMeter powerMeter;
     @Element(name = "temperature", required = false)
     private Temperature temperature;
     @Element(name = "hkr", required = false)
     private Hkr hkr;
+    @Element(name = "levelcontrol", required = false)
+    private LevelControl levelControl;
+    @Element(name = "colorcontrol", required = false)
+    private ColorControl colorControl;
+    @Element(name = "etsiunitinfo", required = false)
+    private EtsiUnitInfo etsiUnitInfo;
+    @ElementList(name = "buttons", required = false, inline = true)
+    private List<Button> buttons;
+    @Element(name = "humidity", required = false)
+    private Humidity humidity;
 
     public String getIdentifier() {
         return identifier;
@@ -84,6 +97,10 @@ public class Device {
 
     public boolean isPresent() {
         return "1".equals(present);
+    }
+
+    public boolean isTxBusy() {
+        return "1".equals(txbusy);
     }
 
     public String getName() {
@@ -114,11 +131,48 @@ public class Device {
         return hkr;
     }
 
+    public SimpleOnOffState getSimpleOnOff() {
+        return simpleOnOff;
+    }
+
+    public LevelControl getLevelControl() {
+        return levelControl;
+    }
+
+    public ColorControl getColorControl() {
+        return colorControl;
+    }
+
+    public EtsiUnitInfo getEtsiUnitInfo() {
+        return etsiUnitInfo;
+    }
+
+    public List<Button> getButtons() {
+        return buttons;
+    }
+
+    public String getPresent() {
+        return present;
+    }
+
+    public String getTxbusy() {
+        return txbusy;
+    }
+
+    public Integer getBatterylow() {
+        return batterylow;
+    }
+
+    public Humidity getHumidity() {
+        return humidity;
+    }
+
     @Override
     public String toString() {
         return "Device [identifier=" + identifier + ", id=" + id + ", functionBitmask=" + functionBitmask
                 + ", firmwareVersion=" + firmwareVersion + ", manufacturer=" + manufacturer + ", productName="
-                + productName + ", present=" + present + ", name=" + name + ", switchState=" + switchState
+                + productName + ", present=" + present + ", txbusy=" + txbusy + ", name=" + name + ", batterylow="
+                + batterylow + ", battery=" + battery + ", switchState=" + switchState + ", simpleOnOff=" + simpleOnOff
                 + ", powerMeter=" + powerMeter + ", temperature=" + temperature + ", hkr=" + hkr + "]";
     }
 }

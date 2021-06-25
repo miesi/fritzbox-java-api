@@ -20,35 +20,27 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "powermeter", strict = false)
-public class PowerMeter {
+@Root(name = "etsiunitinfo")
+public class EtsiUnitInfo {
 
-    @Element(name = "voltage", required = false)
-    private int voltageMilliVolt;
-    @Element(name = "power", required = false)
-    private int powerMilliWatt;
-    @Element(name = "energy", required = false)
-    private int energyWattHours;
+    @Element(name = "etsideviceid")
+    private int etsideviceid;
 
-    public float getVoltageVolt() {
-        return voltageMilliVolt / 1000F;
+    @Element(name = "unittype")
+    private int unittype;
+
+    @Element(name = "interfaces")
+    private String interfaces;
+
+    public int getEtsideviceid() {
+        return etsideviceid;
     }
 
-    public float getPowerWatt() {
-        return powerMilliWatt / 1000F;
+    public int getUnittype() {
+        return unittype;
     }
 
-    public int getEnergyWattHours() {
-        return energyWattHours;
-    }
-
-    public int getPowerMilliWatt() {
-        return powerMilliWatt;
-    }
-
-    @Override
-    public String toString() {
-        return "PowerMeter [voltage=" + getVoltageVolt() + ", energyWattHours=" + energyWattHours + ", powerWatt="
-                + getPowerWatt() + "]";
+    public String getInterfaces() {
+        return interfaces;
     }
 }

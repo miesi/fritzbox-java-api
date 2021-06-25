@@ -17,38 +17,35 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "powermeter", strict = false)
-public class PowerMeter {
+@Root(name = "button")
+public class Button {
 
-    @Element(name = "voltage", required = false)
-    private int voltageMilliVolt;
-    @Element(name = "power", required = false)
-    private int powerMilliWatt;
-    @Element(name = "energy", required = false)
-    private int energyWattHours;
+    @Attribute(name = "identifier")
+    private String identifier;
+    @Attribute(name = "id")
+    private String id;
+    @Element(name = "name", required = false)
+    private String name;
+    @Element(name = "lastpressedtimestamp", required = false)
+    private String lastpressedtimestamp;
 
-    public float getVoltageVolt() {
-        return voltageMilliVolt / 1000F;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public float getPowerWatt() {
-        return powerMilliWatt / 1000F;
+    public String getId() {
+        return id;
     }
 
-    public int getEnergyWattHours() {
-        return energyWattHours;
+    public String getName() {
+        return name;
     }
 
-    public int getPowerMilliWatt() {
-        return powerMilliWatt;
-    }
-
-    @Override
-    public String toString() {
-        return "PowerMeter [voltage=" + getVoltageVolt() + ", energyWattHours=" + energyWattHours + ", powerWatt="
-                + getPowerWatt() + "]";
+    public String getLastpressedtimestamp() {
+        return lastpressedtimestamp;
     }
 }
